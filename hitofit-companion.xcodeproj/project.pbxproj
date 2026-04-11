@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		323071F12F876EE900D567B9 /* PeerToPeerMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 323071F02F876EE900D567B9 /* PeerToPeerMessaging */; };
+		32CB87592F87891E000613E0 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 32CB87582F87891E000613E0 /* RealityKitContent */; };
+		32CB87B12F87940B000613E0 /* StepCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CB87A72F878EA8000613E0 /* StepCommand.swift */; };
+		32CB87B22F87940B000613E0 /* StepCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CB87A72F878EA8000613E0 /* StepCommand.swift */; };
+		32CB87BC2F8799C4000613E0 /* PeerToPeerMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 32CB87BB2F8799C4000613E0 /* PeerToPeerMessaging */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		323071D22F876D0900D567B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,17 +29,49 @@
 			remoteGlobalIDString = 323071C32F876D0700D567B9;
 			remoteInfo = "hitofit-companion";
 		};
+		32CB87662F87891F000613E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 323071BC2F876D0700D567B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32CB87532F87891E000613E0;
+			remoteInfo = "hitofit-reality";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		323071C42F876D0700D567B9 /* hitofit-companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hitofit-companion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		323071D12F876D0900D567B9 /* hitofit-companionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "hitofit-companionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		323071DB2F876D0900D567B9 /* hitofit-companionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "hitofit-companionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32CB87542F87891E000613E0 /* hitofit-reality.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hitofit-reality.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32CB87572F87891E000613E0 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		32CB87652F87891F000613E0 /* hitofit-realityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "hitofit-realityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32CB87732F878969000613E0 /* PeerToPeerMessaging */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerToPeerMessaging; path = "/Users/hitohospital/personal/dev/hitofit-companion/Packages/PeerToPeerMessaging"; sourceTree = "<absolute>"; };
+		32CB87A72F878EA8000613E0 /* StepCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCommand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		32CB876F2F87891F000613E0 /* Exceptions for "hitofit-reality" folder in "hitofit-reality" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 32CB87532F87891E000613E0 /* hitofit-reality */;
+		};
+		32CB87A52F878C39000613E0 /* Exceptions for "hitofit-companion" folder in "hitofit-companion" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 323071C32F876D0700D567B9 /* hitofit-companion */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		323071C62F876D0700D567B9 /* hitofit-companion */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				32CB87A52F878C39000613E0 /* Exceptions for "hitofit-companion" folder in "hitofit-companion" target */,
+			);
 			path = "hitofit-companion";
 			sourceTree = "<group>";
 		};
@@ -45,6 +85,19 @@
 			path = "hitofit-companionUITests";
 			sourceTree = "<group>";
 		};
+		32CB87552F87891E000613E0 /* hitofit-reality */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				32CB876F2F87891F000613E0 /* Exceptions for "hitofit-reality" folder in "hitofit-reality" target */,
+			);
+			path = "hitofit-reality";
+			sourceTree = "<group>";
+		};
+		32CB87682F87891F000613E0 /* hitofit-realityTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "hitofit-realityTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323071F12F876EE900D567B9 /* PeerToPeerMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,15 +123,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		32CB87512F87891E000613E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32CB87BC2F8799C4000613E0 /* PeerToPeerMessaging in Frameworks */,
+				32CB87592F87891E000613E0 /* RealityKitContent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32CB87622F87891F000613E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		323071BB2F876D0700D567B9 = {
 			isa = PBXGroup;
 			children = (
+				32CB87A62F878E94000613E0 /* Shared */,
 				323071C62F876D0700D567B9 /* hitofit-companion */,
 				323071D42F876D0900D567B9 /* hitofit-companionTests */,
 				323071DE2F876D0900D567B9 /* hitofit-companionUITests */,
+				32CB87552F87891E000613E0 /* hitofit-reality */,
+				32CB87562F87891E000613E0 /* Packages */,
+				32CB87682F87891F000613E0 /* hitofit-realityTests */,
+				32CB87BA2F879938000613E0 /* Frameworks */,
 				323071C52F876D0700D567B9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,8 +163,34 @@
 				323071C42F876D0700D567B9 /* hitofit-companion.app */,
 				323071D12F876D0900D567B9 /* hitofit-companionTests.xctest */,
 				323071DB2F876D0900D567B9 /* hitofit-companionUITests.xctest */,
+				32CB87542F87891E000613E0 /* hitofit-reality.app */,
+				32CB87652F87891F000613E0 /* hitofit-realityTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		32CB87562F87891E000613E0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				32CB87572F87891E000613E0 /* RealityKitContent */,
+				32CB87732F878969000613E0 /* PeerToPeerMessaging */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		32CB87A62F878E94000613E0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				32CB87A72F878EA8000613E0 /* StepCommand.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		32CB87BA2F879938000613E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +213,7 @@
 			);
 			name = "hitofit-companion";
 			packageProductDependencies = (
+				323071F02F876EE900D567B9 /* PeerToPeerMessaging */,
 			);
 			productName = "hitofit-companion";
 			productReference = 323071C42F876D0700D567B9 /* hitofit-companion.app */;
@@ -163,6 +265,53 @@
 			productReference = 323071DB2F876D0900D567B9 /* hitofit-companionUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		32CB87532F87891E000613E0 /* hitofit-reality */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32CB87702F87891F000613E0 /* Build configuration list for PBXNativeTarget "hitofit-reality" */;
+			buildPhases = (
+				32CB87502F87891E000613E0 /* Sources */,
+				32CB87512F87891E000613E0 /* Frameworks */,
+				32CB87522F87891E000613E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				32CB87552F87891E000613E0 /* hitofit-reality */,
+			);
+			name = "hitofit-reality";
+			packageProductDependencies = (
+				32CB87582F87891E000613E0 /* RealityKitContent */,
+				32CB87BB2F8799C4000613E0 /* PeerToPeerMessaging */,
+			);
+			productName = "hitofit-reality";
+			productReference = 32CB87542F87891E000613E0 /* hitofit-reality.app */;
+			productType = "com.apple.product-type.application";
+		};
+		32CB87642F87891F000613E0 /* hitofit-realityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32CB87712F87891F000613E0 /* Build configuration list for PBXNativeTarget "hitofit-realityTests" */;
+			buildPhases = (
+				32CB87612F87891F000613E0 /* Sources */,
+				32CB87622F87891F000613E0 /* Frameworks */,
+				32CB87632F87891F000613E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32CB87672F87891F000613E0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				32CB87682F87891F000613E0 /* hitofit-realityTests */,
+			);
+			name = "hitofit-realityTests";
+			packageProductDependencies = (
+			);
+			productName = "hitofit-realityTests";
+			productReference = 32CB87652F87891F000613E0 /* hitofit-realityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +333,13 @@
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = 323071C32F876D0700D567B9;
 					};
+					32CB87532F87891E000613E0 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					32CB87642F87891F000613E0 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 32CB87532F87891E000613E0;
+					};
 				};
 			};
 			buildConfigurationList = 323071BF2F876D0700D567B9 /* Build configuration list for PBXProject "hitofit-companion" */;
@@ -195,6 +351,10 @@
 			);
 			mainGroup = 323071BB2F876D0700D567B9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				323071EE2F876DB800D567B9 /* XCRemoteSwiftPackageReference "swift-certificates" */,
+				32CB87722F878961000613E0 /* XCLocalSwiftPackageReference "PeerToPeerMessaging" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 323071C52F876D0700D567B9 /* Products */;
 			projectDirPath = "";
@@ -203,6 +363,8 @@
 				323071C32F876D0700D567B9 /* hitofit-companion */,
 				323071D02F876D0900D567B9 /* hitofit-companionTests */,
 				323071DA2F876D0900D567B9 /* hitofit-companionUITests */,
+				32CB87532F87891E000613E0 /* hitofit-reality */,
+				32CB87642F87891F000613E0 /* hitofit-realityTests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,6 +391,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		32CB87522F87891E000613E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32CB87632F87891F000613E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -236,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32CB87B12F87940B000613E0 /* StepCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +424,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		323071D72F876D0900D567B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32CB87502F87891E000613E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32CB87B22F87940B000613E0 /* StepCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32CB87612F87891F000613E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,6 +457,11 @@
 			isa = PBXTargetDependency;
 			target = 323071C32F876D0700D567B9 /* hitofit-companion */;
 			targetProxy = 323071DC2F876D0900D567B9 /* PBXContainerItemProxy */;
+		};
+		32CB87672F87891F000613E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32CB87532F87891E000613E0 /* hitofit-reality */;
+			targetProxy = 32CB87662F87891F000613E0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -321,7 +518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -378,7 +575,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -395,13 +592,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CFL589NG5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "hitofit-companion/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Uses network to find and connect to Apple Vision Pros.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -426,13 +627,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CFL589NG5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "hitofit-companion/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Uses network to find and connect to Apple Vision Pros.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,6 +735,116 @@
 			};
 			name = Release;
 		};
+		32CB876B2F87891F000613E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CFL589NG5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Uses network to find and connection iPads.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co-site.hitofit-reality";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		32CB876C2F87891F000613E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CFL589NG5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Uses network to find and connection iPads.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co-site.hitofit-reality";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		32CB876D2F87891F000613E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co-site.hitofit-realityTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hitofit-reality.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hitofit-reality";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		32CB876E2F87891F000613E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co-site.hitofit-realityTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hitofit-reality.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/hitofit-reality";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -569,7 +884,58 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		32CB87702F87891F000613E0 /* Build configuration list for PBXNativeTarget "hitofit-reality" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32CB876B2F87891F000613E0 /* Debug */,
+				32CB876C2F87891F000613E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32CB87712F87891F000613E0 /* Build configuration list for PBXNativeTarget "hitofit-realityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32CB876D2F87891F000613E0 /* Debug */,
+				32CB876E2F87891F000613E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		32CB87722F878961000613E0 /* XCLocalSwiftPackageReference "PeerToPeerMessaging" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = PeerToPeerMessaging;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		323071EE2F876DB800D567B9 /* XCRemoteSwiftPackageReference "swift-certificates" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-certificates.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.18.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		323071F02F876EE900D567B9 /* PeerToPeerMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PeerToPeerMessaging;
+		};
+		32CB87582F87891E000613E0 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+		32CB87BB2F8799C4000613E0 /* PeerToPeerMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PeerToPeerMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 323071BC2F876D0700D567B9 /* Project object */;
 }
