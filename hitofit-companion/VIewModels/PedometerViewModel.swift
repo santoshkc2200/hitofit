@@ -109,6 +109,7 @@ final class PedometerViewModel {
                    count >= self.targetSteps,
                    !self.didAutoReset {
                     self.didAutoReset = true
+                    try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
                     self.resetSession()
                 }
             }
