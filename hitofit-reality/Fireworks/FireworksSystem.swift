@@ -100,7 +100,7 @@ enum FireworksSystem {
 
         // Line 1 — "🎉 Congratulations! 🎉"
         let line1 = makeTextEntity(
-            "🎉  Congratulations!  🎉",
+            String(localized: "fireworks.congratulations"),
             size: 0.10,
             weight: .heavy,
             color: .systemYellow,
@@ -109,7 +109,7 @@ enum FireworksSystem {
         )
         // Line 2 — "Goal Reached"
         let line2 = makeTextEntity(
-            "Goal Reached",
+            String(localized: "fireworks.goalReached"),
             size: 0.075,
             weight: .bold,
             color: .white,
@@ -118,7 +118,7 @@ enum FireworksSystem {
         )
         // Line 3 — subtle subtitle
         let line3 = makeTextEntity(
-            "You did it! Keep moving 🏃",
+            String(localized:"fireworks.keepMoving"),
             size: 0.052,
             weight: .semibold,
             color: .systemGreen,

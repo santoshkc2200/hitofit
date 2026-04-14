@@ -176,9 +176,9 @@ struct BarChartImmersiveView: View {
     }
     
     private func infoString() -> String {
-        if model.isCompleted { return "✅  Goal reached!  \(model.currentSteps) steps" }
-        if model.targetSteps > 0 { return "📊  \(model.currentSteps) / \(model.targetSteps) steps  (\(Int(model.progress*100))%)" }
-        return "📊  Waiting for data…"
+        if model.isCompleted { return String(localized: "goal.reached \(model.currentSteps) steps") }
+        if model.targetSteps > 0 { return String(localized: "\(model.currentSteps) / \(model.targetSteps) steps  (\(Int(model.progress*100))%)") }
+        return String(localized: "waiting.for.data")
     }
     private func updateInfoText() { buildInfoText() }
     

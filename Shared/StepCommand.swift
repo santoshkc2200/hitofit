@@ -41,17 +41,22 @@ public enum StepCommand: PeerToPeerMessage {
 /// The visualisation the iPhone operator wants to show on Vision Pro.
 /// Sent before `.start` so the headset opens the correct experience.
 /// Add new cases here as new display types are built.
+// MARK: - DisplayMode
 public enum DisplayMode: String, Codable, Sendable, CaseIterable {
     case brickWall = "brickWall"
     case barChart  = "barChart"
  
-    public var label: String {
+    /// Localised display name — reads from Localizable.xcstrings in whichever
+    /// target (iPhone or visionOS) is currently running.
+    public var localizedLabel: String {
         switch self {
-        case .brickWall: return "Brick Wall"
-        case .barChart:  return "Bar Chart"
+        case .brickWall: return String(localized: "display.brickWall")
+        case .barChart:  return String(localized: "display.barChart")
         }
     }
  
+    /// Non-localised fallback used where LocalizedStringKey is not accepted
+    /// (e.g. 3-D text generation in RealityKit).
     public var systemImage: String {
         switch self {
         case .brickWall: return "square.grid.3x3.fill"

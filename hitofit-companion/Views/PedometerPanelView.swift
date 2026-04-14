@@ -8,9 +8,8 @@
 import SwiftUI
 
 // MARK: - PedometerPanelView
-/// Connected state UI on the iPhone.
-/// Pre-session: lets the operator choose display mode + target steps.
-/// During session: shows live count, progress bar, and end button.
+
+// MARK: - PedometerPanelView
 struct PedometerPanelView: View {
     @Environment(PedometerViewModel.self) private var viewModel
 
@@ -30,7 +29,8 @@ struct PedometerPanelView: View {
 
                 if let error = viewModel.lastError {
                     Label(error, systemImage: "exclamationmark.triangle.fill")
-                        .font(.footnote).foregroundStyle(.red)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
@@ -40,11 +40,12 @@ struct PedometerPanelView: View {
         }
     }
 
-    // MARK: - Display mode picker card
+    // MARK: - Display Mode Card
     private var displayModeCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Label("Vision Pro Display", systemImage: "visionpro")
+            Label("display.visionProDisplay", systemImage: "visionpro")
                 .font(.headline)
+
             Divider()
 
             VStack(spacing: 10) {
@@ -57,32 +58,39 @@ struct PedometerPanelView: View {
                 }
             }
 
-            Text("The chosen experience opens automatically on Vision Pro when you start.")
-                .font(.caption).foregroundStyle(.tertiary)
+            Text("display.autoOpenHint")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
         }
         .padding(16)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
     }
 
-    // MARK: - Session config card
+    // MARK: - Session Config Card
     private var sessionConfigCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Label("Session Setup", systemImage: "gearshape.fill")
+            Label("session.setup", systemImage: "gearshape.fill")
                 .font(.headline)
+
             Divider()
 
             HStack {
-                Text("Step Target").foregroundStyle(.secondary)
+                Text("session.stepTarget")
+                    .foregroundStyle(.secondary)
+
                 Spacer()
+
                 Stepper(
                     value: Binding(
                         get: { viewModel.targetSteps },
                         set: { viewModel.setTargetSteps($0) }
                     ),
-                    in: 10...10_000, step: 10
+                    in: 10...10_000,
+                    step: 10
                 ) {
-                    Text("\(viewModel.targetSteps) steps")
-                        .monospacedDigit().fontWeight(.semibold)
+                    Text("session.stepTargetValue \(viewModel.targetSteps)")
+                        .monospacedDigit()
+                        .fontWeight(.semibold)
                 }
             }
         }
@@ -90,22 +98,31 @@ struct PedometerPanelView: View {
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
     }
 
-    // MARK: - Live step counter
+    // MARK: - Step Count Card
     private var stepCountCard: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16).fill(.thinMaterial)
+
             VStack(spacing: 10) {
-                // Mode label during session
+
                 if viewModel.sessionStarted {
-                    Label(viewModel.selectedMode.label,
-                          systemImage: viewModel.selectedMode.systemImage)
-                        .font(.caption).foregroundStyle(.secondary)
+                    Label(
+                        viewModel.selectedMode.localizedLabel,
+                        systemImage: viewModel.selectedMode.systemImage
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
                 }
 
-                Text(viewModel.sessionStarted ? "Steps This Session" : "Ready to Start")
-                    .font(.subheadline).foregroundStyle(.secondary)
+                Text(
+                    viewModel.sessionStarted
+                    ? "session.stepsThisSession"
+                    : "session.readyToStart"
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
 
-                Text("\(viewModel.steps)")
+                Text(String(viewModel.steps))
                     .font(.system(size: 64, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .contentTransition(.numericText())
@@ -114,45 +131,62 @@ struct PedometerPanelView: View {
                 if viewModel.sessionStarted && viewModel.targetSteps > 0 {
                     VStack(spacing: 4) {
                         ProgressView(
-                            value: min(1.0, Double(viewModel.steps) / Double(viewModel.targetSteps))
+                            value: min(
+                                1.0,
+                                Double(viewModel.steps) / Double(viewModel.targetSteps)
+                            )
                         )
                         .tint(viewModel.steps >= viewModel.targetSteps ? .green : progressTint)
-                        Text("\(viewModel.steps) / \(viewModel.targetSteps)")
-                            .font(.caption).foregroundStyle(.secondary).monospacedDigit()
+                        Text(String.init(format: "%d / %d", viewModel.steps, viewModel.targetSteps))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .monospacedDigit()
                     }
                     .padding(.horizontal, 8)
                 }
             }
             .padding(24)
         }
-        .frame(maxWidth: .infinity).frame(minHeight: 180)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 180)
     }
 
     private var progressTint: Color {
         viewModel.selectedMode == .brickWall ? .red : .blue
     }
 
-    // MARK: - Primary action
+    // MARK: - Primary Button
     @ViewBuilder
     private var primaryActionButton: some View {
         if viewModel.sessionStarted {
             Button(role: .destructive) {
                 viewModel.resetSession()
             } label: {
-                Label("End Session & Reset", systemImage: "stop.circle.fill")
-                    .font(.headline).frame(maxWidth: .infinity)
+                Label(
+                    "session.endButton",
+                    systemImage: "stop.circle.fill"
+                )
+                .font(.headline)
+                .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent).tint(.red)
+            .buttonStyle(.borderedProminent)
+            .tint(.red)
+
         } else {
             Button {
                 viewModel.startSession()
             } label: {
                 HStack {
                     Image(systemName: viewModel.selectedMode.systemImage)
-                    Text("Start \(viewModel.selectedMode.label) Session")
-                        .fontWeight(.semibold)
+
+                    Text(
+                        "session.startButton \(viewModel.selectedMode.localizedLabel)"
+                        
+                    )
+                    .fontWeight(.semibold)
                 }
-                .font(.headline).frame(maxWidth: .infinity)
+                .font(.headline)
+                .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .tint(viewModel.selectedMode == .brickWall ? .red : .blue)
@@ -162,27 +196,34 @@ struct PedometerPanelView: View {
 
 // MARK: - DisplayModeRow
 private struct DisplayModeRow: View {
-    let mode:       DisplayMode
+    let mode: DisplayMode
     let isSelected: Bool
-    let onTap:      () -> Void
+    let onTap: () -> Void
 
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 14) {
+
                 Image(systemName: mode.systemImage)
                     .font(.title2)
                     .foregroundStyle(isSelected ? .white : .primary)
                     .frame(width: 36)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(mode.label)
+
+                    Text(mode.localizedLabel)
                         .fontWeight(.semibold)
                         .foregroundStyle(isSelected ? .white : .primary)
+
                     Text(modeDescription)
                         .font(.caption)
-                        .foregroundStyle(isSelected ? .white.opacity(0.8) : .secondary)
+                        .foregroundStyle(
+                            isSelected ? .white.opacity(0.8) : .secondary
+                        )
                 }
+
                 Spacer()
+
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.white)
@@ -194,8 +235,10 @@ private struct DisplayModeRow: View {
                     .fill(isSelected ? Color.accentColor : Color.clear)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(isSelected ? Color.clear : Color.secondary.opacity(0.25),
-                                          lineWidth: 1)
+                            .strokeBorder(
+                                isSelected ? Color.clear : Color.secondary.opacity(0.25),
+                                lineWidth: 1
+                            )
                     )
             )
         }
@@ -205,8 +248,10 @@ private struct DisplayModeRow: View {
 
     private var modeDescription: String {
         switch mode {
-        case .brickWall: return "Fully immersive — builds a red brick wall"
-        case .barChart:  return "Mixed reality — floating chart over real world"
+        case .brickWall:
+            return String(localized:"display.brickWallDesc")
+        case .barChart:
+            return String(localized:"display.barChartDesc")
         }
     }
 }

@@ -9,11 +9,9 @@
 import SwiftUI
 import PeerToPeerMessaging
 
+import SwiftUI
+
 // MARK: - ServerContentView
-/// Handles the peer-connection lifecycle on the iPhone.
-/// Once connected it hands off to PedometerPanelView.
-/// This view knows nothing about steps, bricks, or the session —
-/// all of that lives in PedometerViewModel.
 struct ServerContentView: View {
     @Environment(PeerMessagingController<Server<StepCommand>>.self) var serverController
     @Environment(PedometerViewModel.self) var pedometerViewModel
@@ -23,12 +21,10 @@ struct ServerContentView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            // ── Status indicator ─────────────────────────────────────────
             statusHeader
                 .padding(.horizontal)
                 .padding(.top)
 
-            // ── Main content ─────────────────────────────────────────────
             Group {
                 switch serverController.connectionState {
                 case .connected:
@@ -46,10 +42,8 @@ struct ServerContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            // ── Bottom control bar ───────────────────────────────────────
             controlBar.padding()
         }
-        // Auto-reset the session when the peer disconnects
         .onChange(of: serverController.connectionState) { _, state in
             if state != .connected && pedometerViewModel.sessionStarted {
                 pedometerViewModel.resetSession()
@@ -57,38 +51,44 @@ struct ServerContentView: View {
         }
     }
 
-    // MARK: - Status header
+    // MARK: - Status Header
     private var statusHeader: some View {
         HStack(spacing: 8) {
             Circle()
                 .fill(statusColor)
                 .frame(width: 10, height: 10)
                 .accessibilityLabel(statusText)
+
             Text(statusText)
                 .font(.headline)
+
             Spacer()
         }
     }
 
-    // MARK: - Control bar
+    // MARK: - Control Bar
     private var controlBar: some View {
         HStack {
             switch serverController.connectionState {
+
             case .connected:
                 Button(role: .destructive) {
-                    pedometerViewModel.resetSession()   // clean up before disconnect
+                    pedometerViewModel.resetSession()
                     serverController.stop()
                 } label: {
-                    Label("Disconnect", systemImage: "xmark.circle.fill")
+                    Label("server.disconnect", systemImage: "xmark.circle.fill")
                 }
+
             case .connecting:
-                ProgressView("Connecting…")
+                ProgressView("server.connectingProgress")
                 Spacer()
+
             case .waitingForConnection:
-                Button("Stop Listening") {
+                Button("server.stopListening") {
                     networkTask?.cancel()
                     networkTask = nil
                 }
+
             default:
                 EmptyView()
             }
@@ -96,43 +96,53 @@ struct ServerContentView: View {
         }
     }
 
-    // MARK: - State-specific views
-
+    // MARK: - Connecting View
     private var connectingView: some View {
         VStack(spacing: 12) {
-            ProgressView("Connecting…")
-            Text("Waiting for secure handshake")
+            ProgressView("server.connectingProgress")
+
+            Text("server.waitingHandshake")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }
     }
 
+    // MARK: - Listening View
     private var listeningView: some View {
         VStack(spacing: 16) {
-            ProgressView("Listening for incoming connections…")
-            Text("ID: \(serverID?.description ?? "N/A")")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-            Button("Stop Listening") {
+            ProgressView("server.listeningProgress")
+            Text("server.idLabel \(serverID?.description ?? "server.id_na")")
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+
+            Button("server.stopListening") {
                 networkTask?.cancel()
                 networkTask = nil
             }
         }
     }
 
+    // MARK: - Start Listening View
     private var startListeningView: some View {
         VStack(spacing: 20) {
-            Text("Get Started")
-                .font(.title2).bold()
 
-            Text("Enter an ID and start listening for your Vision Pro.")
+            Text("server.getStarted")
+                .font(.title2)
+                .bold()
+
+            Text("server.instructions")
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 12) {
-                Text("Server ID").foregroundStyle(.secondary)
-                TextField(value: $serverID, format: .number) {
-                    Text("e.g. 1234")
+                Text("server.serverID")
+                    .foregroundStyle(.secondary)
+
+                TextField(
+                    value: $serverID,
+                    format: .number
+                ) {
+                    Text("server.idPlaceholder")
                 }
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
@@ -143,10 +153,14 @@ struct ServerContentView: View {
                 guard let id = serverID else { return }
                 guard serverController.connectionState != .connecting else { return }
                 networkTask = serverController.start(with: id.description)
+
             } label: {
-                Label("Start Listening", systemImage: "ear.badge.waveform")
-                    .font(.headline)
-                    .frame(maxWidth: 280)
+                Label(
+                    "server.startListening",
+                    systemImage: "ear.badge.waveform"
+                )
+                .font(.headline)
+                .frame(maxWidth: 280)
             }
             .buttonStyle(.borderedProminent)
             .disabled(serverID == nil)
@@ -163,21 +177,29 @@ struct ServerContentView: View {
     // MARK: - Helpers
     private var statusText: String {
         switch serverController.connectionState {
-        case .connected:            return "Connected"
-        case .connecting:           return "Connecting…"
-        case .waitingForConnection: return "Listening…"
-        default:                    return "Not connected"
+        case .connected:
+            return String(localized: "status.connected")
+        case .connecting:
+            return String(localized: "status.connecting")
+        case .waitingForConnection:
+            return String(localized: "status.listening")
+        default:
+            return String(localized: "status.notConnected")
         }
     }
 
     private var statusColor: Color {
         switch serverController.connectionState {
-        case .connected:                          return .green
-        case .connecting, .waitingForConnection:  return .orange
-        default:                                  return .red
+        case .connected:
+            return .green
+        case .connecting, .waitingForConnection:
+            return .orange
+        default:
+            return .red
         }
     }
 }
+
 
 #Preview {
     ServerContentView()

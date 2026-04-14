@@ -54,12 +54,16 @@ struct ClientContentView: View {
 
                 case .waitingForConnection:
                     browsingView
+                    //Text("Browsing..")
+                    
 
                 case .connecting:
                     connectingView
+                    //Text("Browsing..BB")
 
                 default:
                     startBrowsingView
+                    //Text("Browsing..CC")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -78,16 +82,16 @@ struct ClientContentView: View {
     /// Swap this out for any richer "connected" UI without touching networking code.
     private var connectingView: some View {
         VStack(spacing: 12) {
-            ProgressView("Connecting…")
-            Text("Establishing a secure connection")
+            ProgressView("status.connecting")
+            Text("connection.establishing")
                 .font(.footnote).foregroundStyle(.secondary)
         }
     }
 
     private var browsingView: some View {
         VStack(spacing: 16) {
-            ProgressView("Searching for devices…")
-            Button("Cancel") {
+            ProgressView("connection.searching")
+            Button("connection.cancel") {
                 networkTask?.cancel()
                 networkTask = nil
             }
@@ -96,17 +100,17 @@ struct ClientContentView: View {
 
     private var startBrowsingView: some View {
         VStack(spacing: 20) {
-            Text("Get Started").font(.title2).bold()
-            Text("Connect to your iPad to begin.")
+            Text("connection.getStarted").font(.title2).bold()
+            Text("connection.connectPrompt")
                 .foregroundStyle(.secondary)
-            Text("Your Device ID: \(clientID)")
+            Text("connection.deviceID \(clientID)")
                 .font(.footnote).foregroundStyle(.secondary)
 
             Button {
                 guard clientController.connectionState != .connecting else { return }
                 networkTask = clientController.start(with: clientID.description)
             } label: {
-                Label("Start Connecting", systemImage: "bolt.horizontal.circle.fill")
+                Label("connection.startConnecting", systemImage: "bolt.horizontal.circle.fill")
                     .font(.headline)
             }
             .buttonStyle(.borderedProminent)
@@ -127,13 +131,13 @@ struct ClientContentView: View {
                     messageTask?.cancel()
                     messageTask = nil
                 } label: {
-                    Label("Disconnect", systemImage: "xmark.circle.fill")
+                    Label("connection.disconnect", systemImage: "xmark.circle.fill")
                 }
             case .connecting:
-                ProgressView("Connecting…")
+                ProgressView("status.connecting")
                 Spacer()
             case .waitingForConnection:
-                Button("Cancel") {
+                Button("connection.cancel") {
                     networkTask?.cancel()
                     networkTask = nil
                 }
@@ -147,10 +151,10 @@ struct ClientContentView: View {
     // MARK: - Helpers
     private var statusText: String {
         switch clientController.connectionState {
-        case .connected:           return "Connected"
-        case .connecting:          return "Connecting…"
-        case .waitingForConnection: return "Browsing…"
-        default:                   return "Not connected"
+        case .connected:           return String(localized: "status.connected")
+        case .connecting:          return String(localized: "status.connecting")
+        case .waitingForConnection: return String(localized: "status.browsing")
+        default:                   return String(localized: "status.notConnected")
         }
     }
 
@@ -177,7 +181,7 @@ private struct ConnectedStatusView: View {
                 // Session is running — immersive space should be open.
                 // Window shows a lightweight live summary.
                 VStack(spacing: 12) {
-                    Label("Session Active", systemImage: "figure.walk.circle.fill")
+                    Label("session.active", systemImage: "figure.walk.circle.fill")
                         .font(.title2).fontWeight(.semibold).foregroundStyle(.green)
 
                     if viewModel.targetSteps > 0 {
@@ -193,7 +197,7 @@ private struct ConnectedStatusView: View {
                     }
 
                     if wallModel.isCompleted {
-                        Label("Goal reached! 🎉", systemImage: "checkmark.seal.fill")
+                        Label("session.goalReached", systemImage: "checkmark.seal.fill")
                             .foregroundStyle(.green).font(.headline)
                     }
                 }
@@ -204,9 +208,9 @@ private struct ConnectedStatusView: View {
                 // Connected but .start not yet received
                 VStack(spacing: 12) {
                     ProgressView()
-                    Text("Waiting for session to start…")
+                    Text("session.waitingToStart")
                         .font(.headline).foregroundStyle(.secondary)
-                    Text("The immersive wall will open automatically.")
+                    Text("session.willOpenAutomatically")
                         .font(.footnote).foregroundStyle(.tertiary)
                 }
             }

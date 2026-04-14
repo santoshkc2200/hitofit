@@ -53,7 +53,7 @@ final class StepViewModel {
             switchDisplay(to: mode)
 
         case .start:
-            print("StepViewModel: start [\(activeMode.label)]")
+            print("StepViewModel: start [\(activeMode.localizedLabel)]")
             isStarted = true
             display.start()
 
@@ -64,7 +64,7 @@ final class StepViewModel {
 
         case .stepUpdate(let count):
             steps = count
-            display.receive(cumulativeCount: count)
+            _ = display.receive(cumulativeCount: count)
 
         case .reset:
             print("StepViewModel: reset")
@@ -79,10 +79,10 @@ final class StepViewModel {
     private func switchDisplay(to mode: DisplayMode) {
         guard mode != activeMode else { return }
         guard let entry = registry.entry(for: mode) else {
-            print("StepViewModel: no display registered for \(mode.label)")
+            print("StepViewModel: no display registered for \(mode.localizedLabel)")
             return
         }
-        print("StepViewModel: switching display \(activeMode.label) → \(mode.label)")
+        print("StepViewModel: switching display \(activeMode.localizedLabel) → \(mode.localizedLabel)")
         // Reset the old one cleanly before switching
         display.reset()
         display    = entry.model

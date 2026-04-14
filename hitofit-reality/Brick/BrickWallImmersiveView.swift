@@ -38,22 +38,21 @@ struct BrickLayoutEngine {
 // MARK: - BrickWallImmersiveView
 struct BrickWallImmersiveView: View {
     @Environment(BrickWallModel.self) private var model
-
-    @State private var rootEntity       = Entity()
-    @State private var infoEntity       = Entity()
-    @State private var deltaLabelEntity = Entity()
+ 
+    @State private var rootEntity        = Entity()
+    @State private var infoEntity        = Entity()
+    @State private var deltaLabelEntity  = Entity()
     @State private var sceneBrickCount: Int = 0
-
+//    @State private var natureSystem      = NatureParticleSystem()
     @State private var audioPlayers: [AVAudioPlayer] = []
     @State private var audioIdx = 0
-
-    // Keeps a reference to the RealityViewContent for fireworks
     @State private var sceneContent: RealityViewContent?
-
+ 
     var body: some View {
         RealityView { content in
             sceneContent = content
             setupScene(content: content)
+//            await natureSystem.start(in: content) 
         } update: { _ in }
         .onChange(of: model.bricksPlaced) { old, new in
             guard new > old else { return }
@@ -65,14 +64,10 @@ struct BrickWallImmersiveView: View {
         .onChange(of: model.isCompleted) { _, completed in
             if completed {
                 updateInfoText()
-                // Small delay so the last bricks settle before fireworks ignite
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     if let content = sceneContent {
-                        FireworksSystem.launchCelebration(
-                            in: content,
-                            // Origin slightly above and in front of the wall
-                            origin: SIMD3<Float>(0, 1.6, -2.5)
-                        )
+                        FireworksSystem.launchCelebration(in: content,
+                                                          origin: SIMD3<Float>(0, 1.6, -2.5))
                     }
                 }
             }
@@ -80,20 +75,18 @@ struct BrickWallImmersiveView: View {
         .onChange(of: model.bricksPlaced) { _, new in
             if new == 0 { clearScene() }
         }
+//        .onDisappear { natureSystem.stop() }
     }
-
+ 
     // MARK: - Scene setup
     private func setupScene(content: RealityViewContent) {
         rootEntity.position       = SIMD3<Float>(0, 0.50, -2.5)
-        infoEntity.position       = SIMD3<Float>(0, 0.4, -2.5)
+        infoEntity.position       = SIMD3<Float>(0, -0.1, -2.5)
         deltaLabelEntity.position = SIMD3<Float>(0, 0.85, -2.5)
-        content.add(rootEntity)
-        content.add(infoEntity)
-        content.add(deltaLabelEntity)
-        setupAudio()
-        buildInfoText()
+        content.add(rootEntity); content.add(infoEntity); content.add(deltaLabelEntity)
+        setupAudio(); buildInfoText()
     }
-
+ 
     // MARK: - Brick placement
     private func placeBricks(from startIndex: Int, count: Int) {
         for offset in 0..<count {
@@ -104,26 +97,22 @@ struct BrickWallImmersiveView: View {
         }
         sceneBrickCount += count
     }
-
+ 
     private func placeSingleBrick(at index: Int) {
         let entity    = makeBrickEntity()
         let targetPos = BrickLayoutEngine.position(for: index)
-
         entity.position           = targetPos + SIMD3<Float>(0, 0.30, 0)
         entity.scale              = SIMD3<Float>(0.08, 0.08, 0.08)
         entity.transform.rotation = simd_quatf(
             angle: Float.random(in: -0.18...0.18), axis: SIMD3<Float>(0, 0, 1))
         rootEntity.addChild(entity)
-
         var final = Transform()
-        final.translation = targetPos
-        final.scale       = SIMD3<Float>(1, 1, 1)
-        final.rotation    = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
+        final.translation = targetPos; final.scale = .one
+        final.rotation = simd_quatf(angle: 0, axis: SIMD3<Float>(0, 1, 0))
         entity.move(to: final, relativeTo: rootEntity, duration: 0.26, timingFunction: .easeOut)
-
         playBrickSound()
     }
-
+ 
     private func makeBrickEntity() -> ModelEntity {
         let mesh = MeshResource.generateBox(
             width: BrickLayoutEngine.brickWidth, height: BrickLayoutEngine.brickHeight,
@@ -132,26 +121,21 @@ struct BrickWallImmersiveView: View {
         var mat = PhysicallyBasedMaterial()
         mat.baseColor = .init(tint: UIColor(red: CGFloat(0.78+rv), green: CGFloat(0.12+rv*0.25),
                                             blue: 0.07, alpha: 1))
-        mat.roughness = .init(floatLiteral: 0.85)
-        mat.metallic  = .init(floatLiteral: 0.0)
+        mat.roughness = .init(floatLiteral: 0.85); mat.metallic = .init(floatLiteral: 0.0)
         return ModelEntity(mesh: mesh, materials: [mat])
     }
-
-    // MARK: - Scene clear
+ 
     private func clearScene() {
-        rootEntity.children.removeAll()
-        deltaLabelEntity.children.removeAll()
-        sceneBrickCount = 0
-        buildInfoText()
+        rootEntity.children.removeAll(); deltaLabelEntity.children.removeAll()
+        sceneBrickCount = 0; buildInfoText()
     }
-
+ 
     // MARK: - Delta label
     private func showDeltaLabel(delta: Int) {
         guard delta > 0 else { return }
         deltaLabelEntity.children.removeAll()
-
-        let mesh = MeshResource.generateText(
-            "+\(delta) steps", extrusionDepth: 0.006,
+        let label = String(format: String(localized: "brickWall.deltaLabel"), delta)
+        let mesh = MeshResource.generateText(label, extrusionDepth: 0.006,
             font: .systemFont(ofSize: 0.065, weight: .heavy),
             containerFrame: CGRect(x: -0.45, y: -0.05, width: 0.9, height: 0.11),
             alignment: .center, lineBreakMode: .byClipping)
@@ -160,8 +144,7 @@ struct BrickWallImmersiveView: View {
         let badge = ModelEntity(mesh: mesh, materials: [mat])
         badge.scale = SIMD3<Float>(1.6, 1.6, 1.6)
         deltaLabelEntity.addChild(badge)
-
-        var t = Transform(); t.scale = SIMD3<Float>(1, 1, 1)
+        var t = Transform(); t.scale = .one
         badge.move(to: t, relativeTo: deltaLabelEntity, duration: 0.18, timingFunction: .easeOut)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
             var t2 = Transform(); t2.scale = SIMD3<Float>(0.01, 0.01, 0.01)
@@ -169,7 +152,7 @@ struct BrickWallImmersiveView: View {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) { deltaLabelEntity.children.removeAll() }
     }
-
+ 
     // MARK: - Info text
     private func buildInfoText() {
         infoEntity.children.removeAll()
@@ -179,43 +162,43 @@ struct BrickWallImmersiveView: View {
             containerFrame: CGRect(x: -0.75, y: -0.06, width: 1.5, height: 0.13),
             alignment: .center, lineBreakMode: .byWordWrapping)
         var mat = SimpleMaterial()
-        mat.color     = .init(tint: model.isCompleted ? .systemGreen : .white)
-        mat.metallic  = .float(0.15); mat.roughness = .float(0.45)
+        mat.color = .init(tint: model.isCompleted ? .systemGreen : .white)
+        mat.metallic = .float(0.15); mat.roughness = .float(0.45)
         infoEntity.addChild(ModelEntity(mesh: mesh, materials: [mat]))
     }
-
+ 
     private func infoString() -> String {
-        if model.isCompleted { return "✅  COMPLETED  —  \(model.bricksPlaced) steps!" }
-        if model.targetBricks > 0 { return "🧱  \(model.bricksPlaced) / \(model.targetBricks) steps" }
-        return "🧱  Waiting for target…"
+        if model.isCompleted {
+            return String(format: String(localized: "brickWall.completed"), model.bricksPlaced)
+        }
+        if model.targetBricks > 0 {
+            return String(format: String(localized: "brickWall.progress"),
+                          model.bricksPlaced, model.targetBricks)
+        }
+        return String(localized: "brickWall.waiting")
     }
     private func updateInfoText() { buildInfoText() }
-
+ 
     // MARK: - Audio
     private func setupAudio() { audioPlayers = (0..<3).compactMap { _ in makeAudioPlayer() } }
-
     private func makeAudioPlayer() -> AVAudioPlayer? {
-        let sr: Double = 44100
-        let n  = Int(sr * 0.10)
+        let sr: Double = 44100, n = Int(sr * 0.10)
         var buf = [Float](repeating: 0, count: n)
         for i in 0..<n {
             let t = Double(i) / sr
-            buf[i] = Float(exp(-t * 38)) * (0.45*Float(sin(2 * .pi * 160 * t))
+            buf[i] = Float(exp(-t*38)) * (0.45*Float(sin(2 * .pi * 160 * t))
                      + 0.55*Float.random(in: -1...1)) * 0.55
         }
-        let pcm = buf.map { Int16(max(-32767, min(32767, Int($0 * 32767)))) }
+        let pcm = buf.map { Int16(max(-32767, min(32767, Int($0*32767)))) }
         let p = try? AVAudioPlayer(data: buildWAV(pcm: pcm, sampleRate: UInt32(sr)))
         p?.prepareToPlay(); return p
     }
-
     private func playBrickSound() {
         let p = audioPlayers[audioIdx % audioPlayers.count]
         p.stop(); p.currentTime = 0; p.play(); audioIdx += 1
     }
-
     private func buildWAV(pcm: [Int16], sampleRate: UInt32) -> Data {
-        let ch: UInt16 = 1, bps: UInt16 = 16
-        let ds = UInt32(pcm.count) * 2
+        let ch: UInt16 = 1, bps: UInt16 = 16, ds = UInt32(pcm.count) * 2
         var d = Data()
         func a<T: FixedWidthInteger>(_ v: T) { withUnsafeBytes(of: v.littleEndian) { d.append(contentsOf: $0) } }
         d += "RIFF".utf8; a(36+ds); d += "WAVE".utf8
